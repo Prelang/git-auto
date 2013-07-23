@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+# ================================================
+# PRELANG ========================================
+# ================================================
+begin
+  require "prelang"
+rescue LoadError
+  require "rubygems"
+  require "prelang"
+end
+
+Prelang.main
+
