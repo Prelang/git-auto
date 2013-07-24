@@ -5,11 +5,11 @@ require 'git_auto/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "git-auto"
-  spec.version       = Git::Auto::VERSION
+  spec.version       = GitAuto::VERSION
   spec.authors       = ["Erik Nomitch"]
   spec.email         = ["erik@nomitch.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = "Description"
+  spec.summary       = "Summary"
   spec.homepage      = ""
   spec.license       = "MIT"
 
