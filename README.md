@@ -16,16 +16,24 @@ Or install it yourself as:
 
 ## Usage
 
-* cleaned
-* reordered
-* commented
-* fixed-typo
-* changed-wording
-* downsized
+FIX: Make this generate on a post-commit hook
+* cleaned:clean
+* reordered:reorder
+* commented:comment
+* fixed-typo:typo
+* changed-wording:wording
+* changed-formatting:formatting
+* downsized:downsized
+* optimized:optimized
+* removed-whitespace:whitespace
 
 * moved files
 * removed files
 * added files
+
+Have git-auto attempt to guess your commit (Warning: basic):
+
+    $ git auto
 
 Pass multiple actions:
 
@@ -33,7 +41,7 @@ Pass multiple actions:
 
 Go file-by-file:
 
-    $ git auto walk
+    $ git auto each
 
 Define your own actions:
 

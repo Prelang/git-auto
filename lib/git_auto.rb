@@ -11,23 +11,24 @@ module GitAuto
   # ----------------------------------------------
   mattr_accessor :commands, :repository
 
-  self.commands = []
+  self.commands   = []
+  self.repository = false
 
   # ----------------------------------------------
   # USAGE ----------------------------------------
   # ----------------------------------------------
   def self.usage
-    puts "usage: git-auto"
+    puts "usage: git-auto <action> [--dry-run]"
 
     self.commands.each do |command|
-      puts command.name
+      puts command.usage
     end
 
     return 1
   end
 
   # ----------------------------------------------
-  # ERRORS ---------------------------------------
+  # MESSAGING ------------------------------------
   # ----------------------------------------------
   def self.fatal(message, error_code=1)
     puts "fatal: #{message}"
@@ -38,13 +39,24 @@ module GitAuto
   # GIT ------------------------------------------
   # ----------------------------------------------
   def self.initialize_repository
-
     begin
-      self.repository = Rugged::Repository.discover(".")
-      true
+      # "discover" will give you the path with .git... 
+      #self.repository = Rugged::Repository.new(Rugged::Repository.discover("."))
+      self.repository = Rugged::Repository.new(".")
     rescue Rugged::RepositoryError
-      GitAuto.fatal("not a git repository (or any of the parent directories): .git")
+      GitAuto.fatal "not a git repository (or any of the parent directories): .git", 128
     end
+  end
+
+  def self.commit(options={})
+
+    options[:author] = { :email => "testuser@github.com", :name => 'Test Author', :time => Time.now }
+    options[:committer] = { :email => "testuser@github.com", :name => 'Test Author', :time => Time.now }
+    options[:message] ||= "Making a commit via Rugged!"
+    options[:parents] = self.repository.empty? ? [] : [ self.repository.head.target ].compact
+    options[:update_ref] = 'HEAD'
+
+    Rugged::Commit.create(self.repository, options)
   end
 
   # ----------------------------------------------
@@ -52,28 +64,29 @@ module GitAuto
   # ----------------------------------------------
   def self.main
 
+    # Initialize (and ensure) a Git repository or exit
     GitAuto.initialize_repository
-
-    #return gitauto.fatal("not a git repository (or any of the parent directories): .git") unless repo.empty?
 
     return GitAuto.auto if ARGV.length == 0
 
-    # Find the Command
+    # Find the Command and commit
     command = GitAuto.find_command_by_name(ARGV[0])
 
+    # Ensure the command or exit
+    GitAuto.fatal "Not a command" unless command
+
+    # Commit based on the command
     command.commit
 
-    # Chop off the GitAuto command name
-    #shifted = ARGV[1..ARGV.length]
-
-    #return GitAuto.usage
+    # Successful exit
+    exit 0
   end
   
   # ----------------------------------------------
   # FIND -----------------------------------------
   # ----------------------------------------------
-  def find_command_by_name(name)
-    self.commands.select { |command| command.name == name }
+  def self.find_command_by_name(name)
+    self.commands.select { |command| command.name.to_s == name }.first
   end
 
   # ----------------------------------------------
@@ -86,11 +99,8 @@ module GitAuto
   # ----------------------------------------------
   # REGISTRATION ---------------------------------
   # ----------------------------------------------
-  def self.register_command(name, &block)
-    command = Command.new
-    command.name = name
-
-    self.commands << command
+  def self.register_command(*arguments)
+    self.commands << Command.new(*arguments)
   end
 
   # ----------------------------------------------
@@ -99,16 +109,30 @@ module GitAuto
   class Command
     attr_accessor :name, :description
 
+    def initialize(name, description)
+      @name = name
+      @description = description
+    end
+
+    def commit_message
+      "#{@name}"
+    end
+
     def commit
-      puts "commiting #{@name}"
+      #GitAuto.commit({message: commit_message})
+      GitAuto.commit
+    end
+
+    def usage
+      "   #{name}\t#{description}"
     end
   end
 
   # ----------------------------------------------
   # REGISTER->COMMANDS ---------------------------
   # ----------------------------------------------
-  register_command :cleaned do
-  end
+  register_command :clean, "Cleaned"
+  register_command :reorder, "Reordered"
 
 end
 
