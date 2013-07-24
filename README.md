@@ -26,6 +26,16 @@ Or install it yourself as:
 * removed files
 * added files
 
+Pass multiple actions:
+
+    $ git auto cleaned reordered
+
+Go file-by-file:
+
+    $ git auto
+
+Define your own actions:
+
 ## Contributing
 
 1. Fork it
