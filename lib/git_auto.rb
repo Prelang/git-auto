@@ -112,6 +112,8 @@ module GitAuto
   # AUTO -----------------------------------------
   # ----------------------------------------------
   def self.auto
+    # TODO: Try to detect if a new function was added and commit with:
+    # "Added functionName() to foo.js"
     puts "auto"
   end
 
