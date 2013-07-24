@@ -18,6 +18,7 @@ Or install it yourself as:
 
 * cleaned
 * reordered
+* commented
 * fixed-typo
 * changed-wording
 * downsized
@@ -32,7 +33,7 @@ Pass multiple actions:
 
 Go file-by-file:
 
-    $ git auto
+    $ git auto walk
 
 Define your own actions:
 
