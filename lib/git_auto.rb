@@ -1,4 +1,10 @@
-class GitAuto
+require "active_support/all"
+
+module GitAuto
+  mattr_accessor :commands
+
+  self.commands = []
+
   def self.usage
     puts "usage: git-auto"
     return 1

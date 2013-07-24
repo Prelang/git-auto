@@ -4,3 +4,6 @@
 gem uninstall git-auto --executables
 
 rake
+echo "-------"
+
+git-auto
