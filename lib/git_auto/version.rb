@@ -1,3 +1,3 @@
-module Foo
+module GitAuto
   VERSION = "0.0.1"
 end
