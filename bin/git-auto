@@ -9,5 +9,5 @@ rescue LoadError
   require "git_auto"
 end
 
-Prelang.main
+GitAuto.main
 
