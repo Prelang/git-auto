@@ -144,7 +144,13 @@ module GitAuto
   # REGISTER->COMMANDS ---------------------------
   # ----------------------------------------------
   register_command :clean, "Cleaned"
+  register_command :typo, "Fixed typo"
+  register_command :comment, "Commented"
+  register_command :dryed, "DRYed"
   register_command :reorder, "Reordered"
+  register_command :wording, "Changed wording"
+  register_command :formatting, "Changed formatting"
+  register_command :shortened, "Shortened"
 
 end
 

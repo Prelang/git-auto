@@ -16,17 +16,7 @@ Or install it yourself as:
 
 ## Usage
 
-FIX: Make this generate on a post-commit hook
-* cleaned:clean
-* reordered:reorder
-* commented:comment
-* fixed-typo:typo
-* changed-wording:wording
-* changed-formatting:formatting
-* changed-spacing:spacing
-* downsized:downsized
-* optimized:optimized
-* removed-whitespace:whitespace
+FIX: Make the commands generate on a post-commit hook
 
 * moved files
 * removed files
