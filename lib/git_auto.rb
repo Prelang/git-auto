@@ -55,6 +55,7 @@ module GitAuto
   end
 
   def self.repository_clean?
+
     # Are there any file changes?
     return false unless system "git diff-files --quiet --ignore-submodules"
 

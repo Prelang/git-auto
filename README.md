@@ -23,6 +23,7 @@ FIX: Make this generate on a post-commit hook
 * fixed-typo:typo
 * changed-wording:wording
 * changed-formatting:formatting
+* changed-spacing:spacing
 * downsized:downsized
 * optimized:optimized
 * removed-whitespace:whitespace
