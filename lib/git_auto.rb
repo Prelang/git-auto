@@ -54,6 +54,10 @@ module GitAuto
     `git ls-files --other --exclude-standard`.split("\n")
   end
 
+  def self.modified_files
+    `git diff-tree --no-commit-id --name-only -r HEAD`.split("\n")
+  end
+
   def self.repository_clean?
 
     # Are there any file changes?
@@ -79,6 +83,8 @@ module GitAuto
 
     # Ensure that we do have an unclean repository
     GitAuto.fatal "Your repository is clean; there's nothing to commit." if GitAuto.repository_clean?
+
+    puts GitAuto.modified_files
 
     return GitAuto.auto if ARGV.length == 0
 
