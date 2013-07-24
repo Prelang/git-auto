@@ -51,8 +51,7 @@ module GitAuto
   end
 
   def self.untracked_files
-    output = `git ls-files --other --exclude-standard`
-    output.split("\n")
+    `git ls-files --other --exclude-standard`.split("\n")
   end
 
   def self.repository_clean?
