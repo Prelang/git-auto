@@ -47,7 +47,7 @@ module GitAuto
   end
 
   def self.commit(message)
-    self.repository.commit message
+    self.repository.commit_all message
   end
 
   def self.untracked_files
