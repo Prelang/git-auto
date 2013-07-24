@@ -16,7 +16,8 @@ end
 desc "Uninstalls git-auto gem and executables"
 
 task :uninstall do
-  sh "gem uninstall git-auto --executables"
+  # FIX: This does not work because it's not loading rvm and such.
+  #sh "gem uninstall git-auto --executables"
 end
 
 # ------------------------------------------------
@@ -34,7 +35,7 @@ end
 desc "Installs git-auto gem"
 
 task :install do
-  sh "gem install git-auto-0.0.0.gem"
+  sh "gem install git-auto-0.0.1.gem"
 end
 
 desc "Uninstalls, Builds, and Installs git-auto gem"

@@ -1,3 +1,6 @@
 #!/bin/zsh
 
+# FIX: Put this in the Rakefile
+gem uninstall git-auto --executables
+
 rake
