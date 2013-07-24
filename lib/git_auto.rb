@@ -1,5 +1,5 @@
 require "active_support/all"
-require "rugged"
+require "git"
 
 # ================================================
 # MODULE->GIT-AUTO ===============================
@@ -40,23 +40,21 @@ module GitAuto
   # ----------------------------------------------
   def self.initialize_repository
     begin
-      # "discover" will give you the path with .git... 
-      #self.repository = Rugged::Repository.new(Rugged::Repository.discover("."))
-      self.repository = Rugged::Repository.new(".")
-    rescue Rugged::RepositoryError
+      self.repository = Git.open ".", log: Logger.new(STDOUT)
+    rescue ArgumentError
       GitAuto.fatal "not a git repository (or any of the parent directories): .git", 128
     end
   end
 
   def self.commit(options={})
 
-    options[:author] = { :email => "testuser@github.com", :name => 'Test Author', :time => Time.now }
-    options[:committer] = { :email => "testuser@github.com", :name => 'Test Author', :time => Time.now }
-    options[:message] ||= "Making a commit via Rugged!"
-    options[:parents] = self.repository.empty? ? [] : [ self.repository.head.target ].compact
-    options[:update_ref] = 'HEAD'
+    #options[:author] = { :email => "testuser@github.com", :name => 'Test Author', :time => Time.now }
+    #options[:committer] = { :email => "testuser@github.com", :name => 'Test Author', :time => Time.now }
+    #options[:message] ||= "Making a commit via Rugged!"
+    #options[:parents] = self.repository.empty? ? [] : [ self.repository.head.target ].compact
+    #options[:update_ref] = 'HEAD'
 
-    Rugged::Commit.create(self.repository, options)
+    #Rugged::Commit.create(self.repository, options)
   end
 
   # ----------------------------------------------
