@@ -3,10 +3,10 @@
 # BIN->GIT-AUTO ==================================
 # ================================================
 begin
-  require "git-auto"
+  require "git_auto"
 rescue LoadError
   require "rubygems"
-  require "git-auto"
+  require "git_auto"
 end
 
 Prelang.main
