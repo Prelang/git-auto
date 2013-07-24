@@ -1,6 +1,4 @@
-# Git::Auto
-
-TODO: Write a gem description
+# GitAuto
 
 ## Installation
 
@@ -18,7 +16,15 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+* cleaned
+* reordered
+* fixed-typo
+* changed-wording
+* downsized
+
+* moved files
+* removed files
+* added files
 
 ## Contributing
 
