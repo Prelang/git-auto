@@ -114,6 +114,10 @@ module GitAuto
   def self.auto
     # TODO: Try to detect if a new function was added and commit with:
     # "Added functionName() to foo.js"
+    #
+    # TODO: If the diff has a block commented, you could try to find the
+    # functions that were commented then make a commit with:
+    # "Commented foo(), bar() block in foo.js"
     puts "auto"
   end
 
