@@ -50,6 +50,25 @@ module GitAuto
     self.repository.commit message
   end
 
+  def self.untracked_files
+    output = `git ls-files --other --exclude-standard`
+    output.split("\n")
+  end
+
+  def self.repository_clean?
+    # Are there any file changes?
+    return false unless system "git diff-files --quiet --ignore-submodules"
+
+    # Are there any text changes?
+    return false unless system "git diff-index --cached --quiet --ignore-submodules HEAD"
+
+    # Are there any untracked files?
+    return false unless self.untracked_files.length == 0
+    
+    # Repository is clean
+    true
+  end
+
   # ----------------------------------------------
   # MAIN -----------------------------------------
   # ----------------------------------------------
@@ -57,6 +76,9 @@ module GitAuto
 
     # Initialize (and ensure) a Git repository or exit
     GitAuto.initialize_repository
+
+    # Ensure that we do have an unclean repository
+    GitAuto.fatal "Your repository is clean; there's nothing to commit." if GitAuto.repository_clean?
 
     return GitAuto.auto if ARGV.length == 0
 
