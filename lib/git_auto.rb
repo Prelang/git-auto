@@ -46,15 +46,8 @@ module GitAuto
     end
   end
 
-  def self.commit(options={})
-
-    #options[:author] = { :email => "testuser@github.com", :name => 'Test Author', :time => Time.now }
-    #options[:committer] = { :email => "testuser@github.com", :name => 'Test Author', :time => Time.now }
-    #options[:message] ||= "Making a commit via Rugged!"
-    #options[:parents] = self.repository.empty? ? [] : [ self.repository.head.target ].compact
-    #options[:update_ref] = 'HEAD'
-
-    #Rugged::Commit.create(self.repository, options)
+  def self.commit(message)
+    self.repository.commit message
   end
 
   # ----------------------------------------------
@@ -117,8 +110,7 @@ module GitAuto
     end
 
     def commit
-      #GitAuto.commit({message: commit_message})
-      GitAuto.commit
+      GitAuto.commit commit_message
     end
 
     def usage
