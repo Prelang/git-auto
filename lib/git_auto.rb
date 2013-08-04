@@ -118,6 +118,12 @@ module GitAuto
     # TODO: If the diff has a block commented, you could try to find the
     # functions that were commented then make a commit with:
     # "Commented foo(), bar() block in foo.js"
+    #
+    # TODO: If the user has removed a function, try to detect it and commit
+    # with:
+    # "Removed foo() from foo.js"
+    #
+    # TODO: You could detect if a user has changed the arguments to a function.
     puts "auto"
   end
 
@@ -162,7 +168,17 @@ module GitAuto
   register_command :reorder, "Reordered"
   register_command :wording, "Changed wording"
   register_command :formatting, "Changed formatting"
-  register_command :shortened, "Shortened"
+  register_command :consolidated, "Consolidated"
+  register_command :fixed, "Fixed" # TODO: Detect if a function, variable, CSS, etc. was fixed
+  register_command :idea, "Added idea"
+  register_command :renamed_function, "Renamed function"
+  # IDEA: You could keep track of ~/.history and make a commit with "the
+  # commands that have been issued since the last commit".
+  #
+  #
+  register_command :start_of_function
+  register_command :start_of_view
+  # etc.
 
 end
 
