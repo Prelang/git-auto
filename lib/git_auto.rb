@@ -178,7 +178,14 @@ module GitAuto
   #
   register_command :start_of_function
   register_command :start_of_view
-  # etc.
+
+  # etc... Or just do this by passing in flags: "s<tart> f<unction> u<ntested>
+  # functionName
+  # (tab completed)
+  #
+  #
+  # IDEA: If the auto command is "relations-between" you could see if two files
+  # were edited and then make the commit: "relations between foo.rb and bar.rb"
 
 end
 
