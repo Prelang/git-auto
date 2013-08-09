@@ -186,6 +186,8 @@ module GitAuto
   #
   # IDEA: If the auto command is "relations-between" you could see if two files
   # were edited and then make the commit: "relations between foo.rb and bar.rb"
+  #
+  # style_for #foo
 
 end
 
