@@ -188,6 +188,10 @@ module GitAuto
   # were edited and then make the commit: "relations between foo.rb and bar.rb"
   #
   # style_for #foo
+  #
+  #
+  # IDEA: You could add in a hook somewhere to detect files that git-auto knows
+  # should be committed like migrations.
 
 end
 
