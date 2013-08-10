@@ -192,6 +192,8 @@ module GitAuto
   #
   # IDEA: You could add in a hook somewhere to detect files that git-auto knows
   # should be committed like migrations.
+  #
+  # :purged
 
 end
 
