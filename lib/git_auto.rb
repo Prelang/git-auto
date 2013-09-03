@@ -194,6 +194,11 @@ module GitAuto
   # should be committed like migrations.
   #
   # :purged
+  #
+  # IDEA: If you had a bank of elements to choose from (maybe extract from CSS?)
+  # you could autocomplete them in the git-auto CLI.
+  #
+  # e.g., "changed height to match header on #some_div"
 
 end
 
