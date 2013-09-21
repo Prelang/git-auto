@@ -199,6 +199,9 @@ module GitAuto
   # you could autocomplete them in the git-auto CLI.
   #
   # e.g., "changed height to match header on #some_div"
+  #
+  #
+  # git auto organized
 
 end
 
