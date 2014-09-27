@@ -48,6 +48,7 @@ module GitAuto
   # TEMPORARY: Remove logging
   def self.git_logger
     STDOUT
+    nil
   end
 
   def self.initialize_repository
