@@ -1,6 +1,5 @@
 #!/bin/zsh
 
-rake
-echo "-------"
+rake && clear && \
+  git-auto
 
-git-auto
