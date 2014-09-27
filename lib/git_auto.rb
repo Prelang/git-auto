@@ -85,6 +85,11 @@ module GitAuto
     true
   end
 
+  def self.diff
+    # FIX: Not sure how to get the diff from the current state to HEAD with the git Gem
+    `git diff --no-color`
+  end
+
   # ----------------------------------------------
   # MAIN -----------------------------------------
   # ----------------------------------------------
