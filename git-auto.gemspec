@@ -11,15 +11,13 @@ Gem::Specification.new do |spec|
   spec.description   = "Description"
   spec.summary       = "Summary"
   spec.homepage      = ""
-  spec.license       = "MIT"
+  spec.licenses      = ["GPL-2.0"]
 
   spec.files         = `git ls-files`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.3"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "active_support"
-  spec.add_development_dependency "git"
+  spec.add_runtime_dependency "activesupport", "~> 4.1", "= 4.1.4"
+  spec.add_runtime_dependency "git",           "~> 1.2", "~> 1.2.8"
 end
