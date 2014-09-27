@@ -1,5 +1,4 @@
 #!/bin/zsh
 
-rake && clear && \
-  git-auto
-
+#rake && clear && git-auto
+rake
