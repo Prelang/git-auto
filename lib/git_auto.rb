@@ -1,5 +1,6 @@
 require "active_support/all"
 require "git"
+require "pry"
 
 # ================================================
 # MODULE->GIT-AUTO ===============================
@@ -91,6 +92,8 @@ module GitAuto
 
     # Initialize (and ensure) a Git repository or exit
     GitAuto.initialize_repository
+
+    binding.pry
 
     # Ensure that we do have an unclean repository
     GitAuto.fatal "nothing to commit, working directory clean", show_fatal: false if GitAuto.repository_clean?
