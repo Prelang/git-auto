@@ -224,3 +224,4 @@ module GitAuto
 
 end
 
+require "git_auto/repository"
