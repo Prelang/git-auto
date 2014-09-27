@@ -93,7 +93,7 @@ module GitAuto
     GitAuto.initialize_repository
 
     # Ensure that we do have an unclean repository
-    GitAuto.fatal "Your repository is clean; there's nothing to commit.", show_fatal: false if GitAuto.repository_clean?
+    GitAuto.fatal "nothing to commit, working directory clean", show_fatal: false if GitAuto.repository_clean?
 
     puts GitAuto.modified_files
 
