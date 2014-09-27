@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["erik@nomitch.com"]
   spec.description   = "Description"
   spec.summary       = "Summary"
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/Prelang/git-auto"
   spec.licenses      = ["GPL-2.0"]
 
   spec.files         = `git ls-files`.split($/)
