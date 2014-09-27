@@ -176,8 +176,8 @@ module GitAuto
   # commands that have been issued since the last commit".
   #
   #
-  register_command :start_of_function
-  register_command :start_of_view
+  #register_command :start_of_function
+  #register_command :start_of_view
 
   # etc... Or just do this by passing in flags: "s<tart> f<unction> u<ntested>
   # functionName
