@@ -30,19 +30,30 @@ module GitAuto
   # ----------------------------------------------
   # MESSAGING ------------------------------------
   # ----------------------------------------------
-  def self.fatal(message, error_code=1)
-    puts "fatal: #{message}"
+  def self.fatal(message, error_code: 1, show_fatal: true)
+
+    prefix = ""
+    prefix = "fatal: " if show_fatal
+
+    puts "git-auto: #{prefix}#{message}"
+
     exit error_code
   end
 
   # ----------------------------------------------
   # GIT ------------------------------------------
   # ----------------------------------------------
+  
+  # TEMPORARY: Remove logging
+  def self.git_logger
+    STDOUT
+  end
+
   def self.initialize_repository
     begin
-      self.repository = Git.open ".", log: Logger.new(STDOUT)
+      self.repository = Git.open ".", log: Logger.new(git_logger)
     rescue ArgumentError
-      GitAuto.fatal "not a git repository (or any of the parent directories): .git", 128
+      GitAuto.fatal "not a git repository (or any of the parent directories): .git", error_code: 128
     end
   end
 
@@ -82,7 +93,7 @@ module GitAuto
     GitAuto.initialize_repository
 
     # Ensure that we do have an unclean repository
-    GitAuto.fatal "Your repository is clean; there's nothing to commit." if GitAuto.repository_clean?
+    GitAuto.fatal "Your repository is clean; there's nothing to commit.", show_fatal: false if GitAuto.repository_clean?
 
     puts GitAuto.modified_files
 
