@@ -1,0 +1,14 @@
+{
+  "default": {
+    "extensions": [".rb", ".gemspec", ".md"],
+    "files":      ["Gemfile", "Rakefile", "bin/*", "run", "ofe.json"],
+    "first_file": "Gemfile"
+  },
+  "docs": {
+    "extensions": [".md"],
+    "first_file": "README.md"
+  },
+  "git": {
+    "files": [".git/config", ".gitignore"]
+  }
+}
