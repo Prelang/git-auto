@@ -21,7 +21,7 @@ module GitAuto
     # --------------------------------------------
     # --------------------------------------------
     def modified_files
-    `git diff-tree --no-commit-id --name-only -r HEAD`.split("\n")
+      `git diff --name-only`.split("\n")
     end
   
     def commit(message)
@@ -47,9 +47,9 @@ module GitAuto
       true
     end
 
-    def diff
+    def diff(file: nil)
       # FIX: Not sure how to get the diff from the current state to HEAD with the git Gem
-      `git diff --no-color`
+      `git diff --no-color #{file}`
     end
 
   end

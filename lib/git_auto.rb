@@ -72,7 +72,10 @@ module GitAuto
     # Ensure that we do have an unclean repository
     GitAuto.fatal "nothing to commit, working directory clean", show_fatal: false if repository.clean_work_tree?
 
-    puts repository.modified_files
+    repository.modified_files.each do |file|
+      puts repository.diff file: file
+      puts
+    end
 
     #return GitAuto.auto if ARGV.length == 0
 
