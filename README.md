@@ -1,5 +1,7 @@
 # GitAuto
 
+**WARNING: Not working/complete - Still under heavy development**
+
 ## Installation
 
 Add this line to your application's Gemfile:
