@@ -109,8 +109,10 @@ module GitAuto
       end
 
       warning "Argument is not a command but is not the last argument (formatted commit message). Skipping."
-
     end
+
+    # Now we can pass commands and message to 'auto'
+    auto message: message, commands: commands
     
   end
   
@@ -124,26 +126,18 @@ module GitAuto
   # ----------------------------------------------
   # AUTO -----------------------------------------
   # ----------------------------------------------
-  def self.auto(arguments=[])
-    # TODO: Try to detect if a new function was added and commit with:
-    # "Added functionName() to foo.js"
-    #
-    # TODO: If the diff has a block commented, you could try to find the
-    # functions that were commented then make a commit with:
-    # "Commented foo(), bar() block in foo.js"
-    #
-    # TODO: If the user has removed a function, try to detect it and commit
-    # with:
-    # "Removed foo() from foo.js"
-    #
-    # TODO: You could detect if a user has changed the arguments to a function.
-    puts "auto"
+  def self.auto(message: nil, commands: [])
+
+
+    puts commands
+    puts message
+
   end
 
   # ----------------------------------------------
   # FORMATTED ------------------------------------
   # ----------------------------------------------
-  def self.formatted_commit(arguments)
+  def self.formatted_commit_message(message)
   end
 
   # ----------------------------------------------
@@ -184,69 +178,10 @@ module GitAuto
   # ----------------------------------------------
   # REGISTER->COMMANDS ---------------------------
   # ----------------------------------------------
-  register_command :clean, "Cleaned"
-  register_command :typo, "Fixed typo"
-  register_command :comment, "Commented"
-  register_command :dryed, "DRYed"
-  register_command :reorder, "Reordered"
-  register_command :wording, "Changed wording"
-  register_command :formatting, "Changed formatting"
-  register_command :consolidated, "Consolidated"
-  register_command :fixed, "Fixed" # TODO: Detect if a function, variable, CSS, etc. was fixed
-  register_command :idea, "Added idea"
-  register_command :renamed_function, "Renamed function"
-  # IDEA: You could keep track of ~/.history and make a commit with "the
-  # commands that have been issued since the last commit".
-  #
-  #
-  #register_command :start_of_function
-  #register_command :start_of_view
-
-  # etc... Or just do this by passing in flags: "s<tart> f<unction> u<ntested>
-  # functionName
-  # (tab completed)
-  #
-  #
-  # IDEA: If the auto command is "relations-between" you could see if two files
-  # were edited and then make the commit: "relations between foo.rb and bar.rb"
-  #
-  # style_for #foo
-  #
-  #
-  # IDEA: You could add in a hook somewhere to detect files that git-auto knows
-  # should be committed like migrations.
-  #
-  # :purged
-  #
-  # IDEA: If you had a bank of elements to choose from (maybe extract from CSS?)
-  # you could autocomplete them in the git-auto CLI.
-  #
-  # e.g., "changed height to match header on #some_div"
-  #
-  #
-  # git auto organized
-  #
-  #
-  #FIX: Make the commands generate on a post-commit hook
-
-  #* moved files
-  #* removed files
-  #* added files
-
-  #Have git-auto attempt to guess your commit (Warning: basic):
-
-      #$ git auto
-
-  #Pass multiple actions:
-
-      #$ git auto cleaned reordered
-
-  #Go file-by-file:
-
-      #$ git auto each
-
-  #Define your own actions:
-
+  register_command :+,       "Adds"
+  register_command :-,       "Removes"
+  register_command :renames, "Renames"
+  register_command :moves,   "Moves"
 
 end
 
