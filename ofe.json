@@ -1,7 +1,7 @@
 {
   "default": {
     "extensions": [".rb", ".gemspec", ".md"],
-    "files":      ["Gemfile", "Rakefile", "bin/*", "run", "ofe.json"],
+    "files":      ["Gemfile", "Rakefile", "bin/*", "run", "scratch", "ofe.json"],
     "first_file": "Gemfile"
   },
   "docs": {

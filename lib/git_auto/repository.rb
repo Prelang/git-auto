@@ -20,7 +20,14 @@ module GitAuto
     # --------------------------------------------
     # --------------------------------------------
     # --------------------------------------------
-    def modified_files
+    def modified_files(basename_only: false)
+
+      if basename_only
+        return modified_files.map do |modified_file|
+          File.basename modified_file
+        end
+      end
+
       `git diff --name-only`.split("\n")
     end
   

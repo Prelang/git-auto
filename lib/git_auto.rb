@@ -65,7 +65,7 @@ module GitAuto
     begin
       self.repository = GitAuto::Repository.new
     rescue ArgumentError
-      GitAuto.fatal "not a git repository (or any of the parent directories): .git", error_code: 128
+      fatal "not a git repository (or any of the parent directories): .git", error_code: 128
     end
   end
 
@@ -75,13 +75,13 @@ module GitAuto
   def self.main
 
     # Initialize (and ensure) a Git repository or exit
-    GitAuto.initialize_repository
+    initialize_repository
 
     # Ensure that we do have an unclean repository
-    GitAuto.fatal "nothing to commit, working directory clean", show_fatal: false if repository.clean_work_tree?
+    fatal "nothing to commit, working directory clean", show_fatal: false if repository.clean_work_tree?
 
     # No arguments so just invoke 'auto'
-    return GitAuto.auto if ARGV.length == 0
+    return auto if ARGV.length == 0
 
     # We have arguments. Extract all of the commands and the formatted message.
     commands = []
@@ -104,7 +104,7 @@ module GitAuto
       # The argument is not a Command. Check if it's a valid formatted commit message.
       # If it's the last argument, consider it valid.
       if index == (ARGV.length-1)
-        message = argument
+        message = argument.dup
         break
       end
 
@@ -128,16 +128,37 @@ module GitAuto
   # ----------------------------------------------
   def self.auto(message: nil, commands: [])
 
+    # TEMPORARY:
+    prefix = ""
 
-    puts commands
-    puts message
+    if command = commands.first
+      prefix = "#{command.output} "
+    end
 
+    puts "#{prefix}#{format_message(message)}"
   end
 
   # ----------------------------------------------
   # FORMATTED ------------------------------------
   # ----------------------------------------------
-  def self.formatted_commit_message(message)
+  def self.format_message(message)
+
+    # Define replacements
+    replacements = {
+
+      # Files modified (basenames)
+      ":f"  => lambda { repository.modified_files(basename_only: true).join(", ") },
+
+      # Most modified file's basename
+      ":f*" => lambda { "FIX" }
+    }
+
+    # Search and replace
+    replacements.each do |search, replace|
+      message.gsub! search, replace.call
+    end
+
+    message
   end
 
   # ----------------------------------------------
@@ -154,20 +175,12 @@ module GitAuto
     attr_accessor :name, :description
 
     def initialize(name, description)
-      @name = name
+      @name        = name
       @description = description
     end
 
-    def commit_message
-      "#{@name}"
-    end
-
-    def execute(arguments)
-      puts "Executing: #{name} sub command with arguments: #{arguments}"
-    end
-
-    def commit
-      GitAuto.commit commit_message
+    def output
+      description
     end
 
     def usage
