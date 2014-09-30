@@ -139,22 +139,22 @@ module GitAuto
   end
 
   # ----------------------------------------------
-  # FORMATTED ------------------------------------
+  # FORMATTING -----------------------------------
   # ----------------------------------------------
-  def self.format_message(message)
-
-    # Define replacements
-    replacements = {
-
+  def self.replacement_definitions
+    {
       # Files modified (basenames)
       ":f"  => lambda { repository.modified_files(basename_only: true).join(", ") },
 
       # Most modified file's basename
       ":f*" => lambda { "FIX" }
     }
+  end
+
+  def self.format_message(message)
 
     # Search and replace
-    replacements.each do |search, replace|
+    replacement_definitions.each do |search, replace|
       message.gsub! search, replace.call
     end
 
