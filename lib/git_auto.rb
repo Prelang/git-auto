@@ -40,6 +40,16 @@ module GitAuto
 
     exit error_code
   end
+  
+  def self.warning(message, error_code: nil, show_warning: true)
+
+    prefix = ""
+    prefix = "warning: " if show_warning
+
+    puts "git-auto: #{prefix}#{message}"
+
+    exit error_code if error_code
+  end
 
   # ----------------------------------------------
   # GIT ------------------------------------------
@@ -69,30 +79,39 @@ module GitAuto
 
     # Ensure that we do have an unclean repository
     GitAuto.fatal "nothing to commit, working directory clean", show_fatal: false if repository.clean_work_tree?
-    
-    # If we have arguments, try to match a command
-    if ARGV.length > 0
 
-      # Find the Command and commit
-      if command = GitAuto.find_command_by_name(ARGV[0])
-        return command.execute ARGV
+    # No arguments so just invoke 'auto'
+    return GitAuto.auto if ARGV.length == 0
+
+    # We have arguments. Extract all of the commands and the formatted message.
+    commands = []
+    message  = false
+
+    ARGV.each_with_index do |argument, index|
+
+      # The argument is a Command
+      if argument.start_with? ":"
+
+        if command = find_command_by_name(argument[1, argument.length-1])
+          commands << command
+        else
+          warning "Could not find command for command argument '#{argument}'. Skipping."
+        end
+
+        next
       end
 
-      # Command not found, the user is probably passing a formatted commit message.
-      return GitAuto.formatted_commit(ARGV)
+      # The argument is not a Command. Check if it's a valid formatted commit message.
+      # If it's the last argument, consider it valid.
+      if index == (ARGV.length-1)
+        message = argument
+        break
+      end
+
+      warning "Argument is not a command but is not the last argument (formatted commit message). Skipping."
+
     end
-
-    # No arguments so invoke 'auto'
-    GitAuto.auto ARGV
-
-    ## Ensure the command or exit
-    #GitAuto.fatal "Not a command" unless command
-
-    ## Commit based on the command
-    #command.commit
-
-    # Successful exit
-    exit 0
+    
   end
   
   # ----------------------------------------------
@@ -105,7 +124,7 @@ module GitAuto
   # ----------------------------------------------
   # AUTO -----------------------------------------
   # ----------------------------------------------
-  def self.auto
+  def self.auto(arguments=[])
     # TODO: Try to detect if a new function was added and commit with:
     # "Added functionName() to foo.js"
     #
