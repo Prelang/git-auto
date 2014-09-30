@@ -83,7 +83,7 @@ module GitAuto
     end
 
     # No arguments so invoke 'auto'
-    GitAuto.auto
+    GitAuto.auto ARGV
 
     ## Ensure the command or exit
     #GitAuto.fatal "Not a command" unless command
@@ -206,6 +206,28 @@ module GitAuto
   #
   #
   # git auto organized
+  #
+  #
+  #FIX: Make the commands generate on a post-commit hook
+
+  #* moved files
+  #* removed files
+  #* added files
+
+  #Have git-auto attempt to guess your commit (Warning: basic):
+
+      #$ git auto
+
+  #Pass multiple actions:
+
+      #$ git auto cleaned reordered
+
+  #Go file-by-file:
+
+      #$ git auto each
+
+  #Define your own actions:
+
 
 end
 
