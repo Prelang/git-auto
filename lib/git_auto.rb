@@ -19,7 +19,7 @@ module GitAuto
   # USAGE ----------------------------------------
   # ----------------------------------------------
   def self.usage
-    puts "usage: git-auto <action> [--dry-run]"
+    puts "usage: git-auto <action|message> [--dry-run]"
 
     self.commands.each do |command|
       puts command.usage
@@ -67,20 +67,23 @@ module GitAuto
     # Initialize (and ensure) a Git repository or exit
     GitAuto.initialize_repository
 
-    #binding.pry
-
     # Ensure that we do have an unclean repository
     GitAuto.fatal "nothing to commit, working directory clean", show_fatal: false if repository.clean_work_tree?
+    
+    # If we have arguments, try to match a command
+    if ARGV.length > 0
 
-    repository.modified_files.each do |file|
-      puts repository.diff file: file
-      puts
+      # Find the Command and commit
+      if command = GitAuto.find_command_by_name(ARGV[0])
+        return command.execute ARGV
+      end
+
+      # Command not found, the user is probably passing a formatted commit message.
+      return GitAuto.formatted_commit(ARGV)
     end
 
-    #return GitAuto.auto if ARGV.length == 0
-
-    # Find the Command and commit
-    #command = GitAuto.find_command_by_name(ARGV[0])
+    # No arguments so invoke 'auto'
+    GitAuto.auto
 
     ## Ensure the command or exit
     #GitAuto.fatal "Not a command" unless command
@@ -119,6 +122,12 @@ module GitAuto
   end
 
   # ----------------------------------------------
+  # FORMATTED ------------------------------------
+  # ----------------------------------------------
+  def self.formatted_commit(arguments)
+  end
+
+  # ----------------------------------------------
   # REGISTRATION ---------------------------------
   # ----------------------------------------------
   def self.register_command(*arguments)
@@ -138,6 +147,10 @@ module GitAuto
 
     def commit_message
       "#{@name}"
+    end
+
+    def execute(arguments)
+      puts "Executing: #{name} sub command with arguments: #{arguments}"
     end
 
     def commit

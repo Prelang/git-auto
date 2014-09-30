@@ -51,6 +51,11 @@ module GitAuto
       # FIX: Not sure how to get the diff from the current state to HEAD with the git Gem
       `git diff --no-color #{file}`
     end
+    
+    #repository.modified_files.each do |file|
+      #puts repository.diff file: file
+      #puts
+    #end
 
   end
 end
