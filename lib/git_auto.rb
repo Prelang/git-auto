@@ -90,14 +90,8 @@ module GitAuto
     ARGV.each_with_index do |argument, index|
 
       # The argument is a Command
-      if argument.start_with? ":"
-
-        if command = find_command_by_name(argument[1, argument.length-1])
-          commands << command
-        else
-          warning "Could not find command for command argument '#{argument}'. Skipping."
-        end
-
+      if command = find_command_by_match(argument)
+        commands << command
         next
       end
 
@@ -108,7 +102,7 @@ module GitAuto
         break
       end
 
-      warning "Argument is not a command but is not the last argument (formatted commit message). Skipping."
+      warning "Argument '#{argument}' is not a valid command but is not the last argument (formatted commit message). Skipping."
     end
 
     # Now we can pass commands and message to 'auto'
@@ -119,14 +113,17 @@ module GitAuto
   # ----------------------------------------------
   # FIND -----------------------------------------
   # ----------------------------------------------
-  def self.find_command_by_name(name)
-    self.commands.select { |command| command.name.to_s == name }.first
+  def self.find_command_by_match(match)
+    self.commands.select { |command| command.match.to_s == match }.first
   end
 
   # ----------------------------------------------
   # AUTO -----------------------------------------
   # ----------------------------------------------
   def self.auto(message: nil, commands: [])
+
+    # TEMPORARY:
+    return nil unless message
 
     # TEMPORARY:
     prefix = ""
@@ -172,29 +169,29 @@ module GitAuto
   # CLASS->COMMAND -------------------------------
   # ----------------------------------------------
   class Command
-    attr_accessor :name, :description
+    attr_accessor :match, :verb
 
-    def initialize(name, description)
-      @name        = name
-      @description = description
+    def initialize(match, verb)
+      @match = match
+      @verb  = verb
     end
 
     def output
-      description
+      verb
     end
 
     def usage
-      "   #{name}\t#{description}"
+      "   #{match}\t#{verb}"
     end
   end
 
   # ----------------------------------------------
   # REGISTER->COMMANDS ---------------------------
   # ----------------------------------------------
-  register_command :+,       "Adds"
-  register_command :-,       "Removes"
-  register_command :renames, "Renames"
-  register_command :moves,   "Moves"
+  register_command "+",        "Adds"
+  register_command "-",        "Removes"
+  register_command ":renames", "Renames"
+  register_command ":moves",   "Moves"
 
 end
 

@@ -10,5 +10,4 @@ source 'https://rubygems.org'
 # ------------------------------------------------
 # GEMSPEC ----------------------------------------
 # ------------------------------------------------
-# Specify your gem's dependencies in git-auto.gemspec
 gemspec
