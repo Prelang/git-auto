@@ -46,6 +46,8 @@ module GitAuto
       return if yn != "y"
 
       @git.commit_all message
+
+      puts "Committed."
     end
 
     def untracked_files
