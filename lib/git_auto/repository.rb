@@ -41,8 +41,7 @@ module GitAuto
       puts message
       puts "------------------------------------"
 
-      puts "Commit? (y/n)"
-      yn = Readline.readline.chomp("\n")
+      yn = Readline.readline("Commit? (y/n): ").chomp("\n")
       return if yn != "y"
 
       @git.commit_all message

@@ -201,6 +201,7 @@ module GitAuto
   # ----------------------------------------------
   register_command "+",        "Adds"
   register_command "-",        "Removes"
+  register_command "~",        "Modifies"
   register_command ":renames", "Renames"
   register_command ":moves",   "Moves"
 
