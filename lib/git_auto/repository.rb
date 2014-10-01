@@ -18,7 +18,7 @@ module GitAuto
     end
   
     # --------------------------------------------
-    # --------------------------------------------
+    # FILES --------------------------------------
     # --------------------------------------------
     def modified_files(basename_only: false)
 
@@ -31,7 +31,20 @@ module GitAuto
       `git diff --name-only`.split("\n")
     end
   
-    def commit(message)
+    # --------------------------------------------
+    # COMMITS ------------------------------------
+    # --------------------------------------------
+    def commit(message:)
+
+      puts "Message:"
+      puts "------------------------------------"
+      puts message
+      puts "------------------------------------"
+
+      puts "Commit? (y/n)"
+      yn = Readline.readline.chomp("\n")
+      return if yn != "y"
+
       @git.commit_all message
     end
 

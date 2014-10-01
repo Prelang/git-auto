@@ -1,6 +1,7 @@
 require "active_support/all"
 require "git"
 require "pry"
+require "readline"
 
 # ================================================
 # MODULE->GIT-AUTO ===============================
@@ -132,7 +133,14 @@ module GitAuto
       prefix = "#{command.output} "
     end
 
-    puts "#{prefix}#{format_message(message)}"
+    # Build commit message
+    # --------------------------------------------
+    commit_message = "#{prefix}#{format_message(message)}"
+
+    # Perform actual commit
+    # --------------------------------------------
+    repository.commit message: commit_message
+
   end
 
   # ----------------------------------------------
