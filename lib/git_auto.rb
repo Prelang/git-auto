@@ -150,6 +150,9 @@ module GitAuto
     {
       # Files modified (basenames)
       ":f"  => lambda { repository.modified_files(basename_only: true).join(", ") },
+      
+      # Files modified (full paths)
+      ":F"  => lambda { repository.modified_files().join(", ") },
 
       # Most modified file's basename
       ":f*" => lambda { "FIX" }
